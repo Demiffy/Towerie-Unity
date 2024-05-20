@@ -438,6 +438,83 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &237834238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237834240}
+  - component: {fileID: 237834239}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &237834239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237834238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965f414a4137c1418725a26c4f5fe1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveText: {fileID: 1223809754}
+  phaseText: {fileID: 1214948169}
+  moneyText: {fileID: 1436298169}
+  timeText: {fileID: 580269386}
+  healthText: {fileID: 525362373}
+  towerButtons:
+  - {fileID: 2043184745}
+  - {fileID: 1379366371}
+  - {fileID: 1623580557}
+  - {fileID: 357477786}
+  towerPrices:
+  - {fileID: 652242808}
+  - {fileID: 553167094}
+  - {fileID: 1510625072}
+  - {fileID: 54449598}
+  towerNames:
+  - {fileID: 1016779149}
+  - {fileID: 482396279}
+  - {fileID: 8880240}
+  - {fileID: 575607556}
+  towerImages:
+  - {fileID: 1695328909}
+  - {fileID: 671343079}
+  - {fileID: 804060252}
+  - {fileID: 809585442}
+  towerSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skipButton: {fileID: 345273441}
+  statsPanel: {fileID: 1097745488}
+  statsText: {fileID: 642798643}
+--- !u!4 &237834240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237834238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 274.02966, y: 291.97998, z: -4.462416}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261321569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,7 +1659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 66, y: 52}
+  m_AnchoredPosition: {x: 72, y: 52}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &580269386
@@ -1605,7 +1682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '30 Sec
+  m_text: 'Time: 30s
 
 '
   m_isRightToLeft: 0
@@ -3603,3 +3680,4 @@ SceneRoots:
   - {fileID: 84918508}
   - {fileID: 1203018562}
   - {fileID: 261321573}
+  - {fileID: 237834240}
