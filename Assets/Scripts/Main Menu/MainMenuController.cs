@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
+    public GameObject howToPlayPanel;
+
     void Start()
     {
         // Find buttons by name and add listeners to their onClick events
@@ -12,6 +14,11 @@ public class MainMenuController : MonoBehaviour
 
         Button howToPlayButton = GameObject.Find("HowToPlayButton").GetComponent<Button>();
         howToPlayButton.onClick.AddListener(OnHowToPlayButtonClick);
+
+        Button closeButton = GameObject.Find("CloseButton").GetComponent<Button>();
+        closeButton.onClick.AddListener(OnCloseButtonClick);
+
+        howToPlayPanel.SetActive(false);
     }
 
     // Method to handle the start button click
@@ -23,6 +30,12 @@ public class MainMenuController : MonoBehaviour
     // Method to handle the how to play button click
     void OnHowToPlayButtonClick()
     {
-        Debug.Log("How to Play button clicked");
+        howToPlayPanel.SetActive(true);
+    }
+
+    // Method to handle the close button click on the how to play panel
+    void OnCloseButtonClick()
+    {
+        howToPlayPanel.SetActive(false);
     }
 }
