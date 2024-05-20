@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class GameUIManager : MonoBehaviour
 {
+    public static GameUIManager Instance; // Singleton instance
+
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI phaseText;
     public TextMeshProUGUI moneyText;
@@ -27,9 +29,16 @@ public class GameUIManager : MonoBehaviour
     public int playerMoney = 1000;
     public int playerHealth = 100;
 
+    public TowerPlacementManager towerPlacementManager;
+
     private string currentPhase = "Preparation";
     private float timeRemaining;
     private int selectedTowerIndex = -1;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -118,6 +127,7 @@ public class GameUIManager : MonoBehaviour
         // Handle tower button press
         selectedTowerIndex = index;
         ShowTowerStats(index);
+        towerPlacementManager.StartPlacingTower(index);
         Debug.Log($"Tower Button {index + 1} Pressed");
     }
 
@@ -141,14 +151,23 @@ public class GameUIManager : MonoBehaviour
 
     private void ShowTowerStats(int index)
     {
+        Tower tower = towerPlacementManager.towerPrefabs[index].GetComponent<Tower>();
         statsPanel.SetActive(true);
-        statsText.text = $"Tower {index + 1} Stats:\nDamage: 10\nRange: 5\nRate: 1.0s";
+        statsText.text = $"Tower {index + 1} Stats:\n" +
+                         $"Damage: {tower.damage}\n" +
+                         $"Range: {tower.range}\n" +
+                         $"Fire Rate: {tower.fireRate}\n" +
+                         $"Armor Piercing: {tower.armorPiercing}\n" +
+                         $"Can See Camo: {tower.canSeeCamo}\n" +
+                         $"Splash Damage: {tower.splashDamage}\n" +
+                         $"Slowness: {tower.slowness}";
     }
 
-    private void DeselectTower()
+    public void DeselectTower()
     {
         selectedTowerIndex = -1;
         statsPanel.SetActive(false);
+        towerPlacementManager.DeselectTower();
         Debug.Log("Tower Deselected");
     }
 
