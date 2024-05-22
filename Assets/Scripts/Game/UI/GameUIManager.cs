@@ -14,13 +14,12 @@ public class GameUIManager : MonoBehaviour
     public Button[] towerButtons;
     public TextMeshProUGUI[] towerPrices;
     public TextMeshProUGUI[] towerNames;
-    public Image[] towerImages; // Array to hold tower images
-    public Sprite[] towerSprites; // Array to hold the sprites for the towers
+    public Image[] towerImages;
+    public Sprite[] towerSprites;
     public Button skipButton;
     public GameObject statsPanel;
     public TextMeshProUGUI statsText;
 
-    // Configurable variables
     public int currentWave = 1;
     public float preparationTime = 10f;
     public float attackTime = 20f;
@@ -41,7 +40,7 @@ public class GameUIManager : MonoBehaviour
         // Assign onClick listeners
         for (int i = 0; i < towerButtons.Length; i++)
         {
-            int index = i; // Capture the current value of i
+            int index = i;
             towerButtons[i].onClick.AddListener(() => OnTowerButtonClicked(index));
             AddEventTrigger(towerButtons[i].gameObject, EventTriggerType.PointerEnter, () => OnTowerButtonHover(index));
             AddEventTrigger(towerButtons[i].gameObject, EventTriggerType.PointerExit, OnTowerButtonExit);
@@ -169,6 +168,7 @@ public class GameUIManager : MonoBehaviour
         Debug.Log("Attack Phase Started");
     }
 
+    // Helper method to add EventTrigger to a GameObject
     private void AddEventTrigger(GameObject obj, EventTriggerType type, UnityEngine.Events.UnityAction action)
     {
         EventTrigger trigger = obj.GetComponent<EventTrigger>();
