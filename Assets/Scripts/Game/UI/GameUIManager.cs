@@ -35,6 +35,9 @@ public class GameUIManager : MonoBehaviour
     {
         timeRemaining = preparationTime;
 
+        // Hide the stats panel initially
+        statsPanel.SetActive(false);
+
         // Assign onClick listeners
         for (int i = 0; i < towerButtons.Length; i++)
         {
@@ -86,7 +89,7 @@ public class GameUIManager : MonoBehaviour
         // Update tower buttons
         for (int i = 0; i < towerButtons.Length; i++)
         {
-            // Example: Tower data should come from your tower data class
+            // Tower data will come from a script class in the future
             towerNames[i].text = $"Tower {i + 1}";
             towerPrices[i].text = $"$100";
             // Assign images to tower buttons
