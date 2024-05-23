@@ -158,15 +158,19 @@ public class GameUIManager : MonoBehaviour
     {
         currentPhase = "Preparation";
         timeRemaining = preparationTime;
+        FindObjectOfType<EnemySpawner>().enabled = false;
         Debug.Log("Preparation Phase Started");
     }
+
 
     private void StartAttackPhase()
     {
         currentPhase = "Attack";
         timeRemaining = attackTime;
+        FindObjectOfType<EnemySpawner>().enabled = true;
         Debug.Log("Attack Phase Started");
     }
+
 
     // Helper method to add EventTrigger to a GameObject
     private void AddEventTrigger(GameObject obj, EventTriggerType type, UnityEngine.Events.UnityAction action)
