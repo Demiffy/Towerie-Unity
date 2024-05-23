@@ -3543,6 +3543,7 @@ MonoBehaviour:
   consoleInputField: {fileID: 2116359896}
   consoleOutputText: {fileID: 1485698185}
   mapManager: {fileID: 84918507}
+  gameUIManager: {fileID: 237834239}
   toggleKey: 96
 --- !u!1 &1510625070
 GameObject:

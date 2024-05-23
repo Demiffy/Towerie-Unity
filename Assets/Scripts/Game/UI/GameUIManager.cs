@@ -77,7 +77,7 @@ public class GameUIManager : MonoBehaviour
         UpdateUI();
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         waveText.text = $"Wave: {currentWave}";
         phaseText.text = $"Phase: {currentPhase}";
