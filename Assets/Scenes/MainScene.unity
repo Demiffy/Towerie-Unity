@@ -635,11 +635,6 @@ MonoBehaviour:
   skipButton: {fileID: 345273441}
   statsPanel: {fileID: 1097745488}
   statsText: {fileID: 642798643}
-  currentWave: 1
-  preparationTime: 10
-  attackTime: 20
-  playerMoney: 1000
-  playerHealth: 100
 --- !u!4 &237834240
 Transform:
   m_ObjectHideFlags: 0
@@ -1316,7 +1311,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ebd7581e6a3f7439a2f99e7a59e09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5196445822927811455, guid: 8db729f2c3843ed43afaf9392c047f5b, type: 3}
+  enemyPrefabs:
+  - {fileID: 5196445822927811455, guid: 8db729f2c3843ed43afaf9392c047f5b, type: 3}
+  - {fileID: 7240389715619249875, guid: 07e0655584fea3e4dbf35faf8cb85d26, type: 3}
+  - {fileID: 5979982690114285350, guid: 5054ccfc65fb9df459f41ccbefab2f1e, type: 3}
   spawnInterval: 2
 --- !u!1 &519420028
 GameObject:
@@ -2661,6 +2659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1026037780}
+  - component: {fileID: 1026037781}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2687,6 +2686,23 @@ Transform:
   - {fileID: 494431805}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1026037781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026037779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f3509a260a6534387712c79958a1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWave: 1
+  preparationTime: 10
+  attackTime: 20
+  playerMoney: 1000
+  playerHealth: 100
 --- !u!1 &1097745488
 GameObject:
   m_ObjectHideFlags: 0
@@ -3591,7 +3607,7 @@ MonoBehaviour:
   consoleInputField: {fileID: 2116359896}
   consoleOutputText: {fileID: 1485698185}
   mapManager: {fileID: 84918507}
-  gameUIManager: {fileID: 237834239}
+  gameManager: {fileID: 0}
   toggleKey: 96
 --- !u!1 &1510625070
 GameObject:

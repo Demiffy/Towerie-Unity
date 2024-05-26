@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6596117055204624252}
   - component: {fileID: 8563359378345488595}
   m_Layer: 6
-  m_Name: SampleTower
+  m_Name: en1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,5 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701a2e6aebc1a24459bf25df923ecb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   speed: 2
   health: 100
+  damage: 10
+  healingAmount: 0
+  resistance: 0

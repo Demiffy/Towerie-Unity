@@ -49,4 +49,19 @@ public class MapManager : MonoBehaviour
             inGameConsole?.AddToConsoleOutput(errorMessage);
         }
     }
+
+    public void UnloadCurrentMap()
+    {
+        if (currentMap != null)
+        {
+            Destroy(currentMap);
+            currentMap = null;
+            inGameConsole?.AddToConsoleOutput("Current map unloaded.");
+        }
+    }
+
+    public int GetTotalMaps()
+    {
+        return maps.Length;
+    }
 }

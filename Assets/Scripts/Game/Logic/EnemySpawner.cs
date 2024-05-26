@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabs;
     public float spawnInterval = 2f;
 
     private List<Transform> waypoints = new List<Transform>();
     private float spawnTimer;
+    private bool spawningEnabled = false;
 
     void Start()
     {
@@ -16,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        if (!spawningEnabled) return;
+
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0f)
         {
@@ -33,16 +36,29 @@ public class EnemySpawner : MonoBehaviour
         }
 
         waypoints.Sort((a, b) => CompareWaypointNames(a.name, b.name));
+    }
 
-        // Enable the spawner once the path is set
+    public void StartSpawning()
+    {
         enabled = true;
+        spawningEnabled = true;
+        SpawnEnemy();
+        spawnTimer = spawnInterval;
+    }
+
+    public void StopSpawning()
+    {
+        spawningEnabled = false;
     }
 
     private void SpawnEnemy()
     {
         if (waypoints.Count == 0) return;
 
-        GameObject enemy = Instantiate(enemyPrefab, waypoints[0].position, Quaternion.identity);
+        // Select a random enemy prefab from the list
+        GameObject randomEnemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+
+        GameObject enemy = Instantiate(randomEnemyPrefab, waypoints[0].position, Quaternion.identity);
         enemy.GetComponent<Enemy>().Initialize(waypoints);
     }
 

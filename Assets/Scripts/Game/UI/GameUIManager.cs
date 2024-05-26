@@ -20,19 +20,12 @@ public class GameUIManager : MonoBehaviour
     public GameObject statsPanel;
     public TextMeshProUGUI statsText;
 
-    public int currentWave = 1;
-    public float preparationTime = 10f;
-    public float attackTime = 20f;
-    public int playerMoney = 1000;
-    public int playerHealth = 100;
-
-    private string currentPhase = "Preparation";
-    private float timeRemaining;
+    private GameManager gameManager;
     private int selectedTowerIndex = -1;
 
     void Start()
     {
-        timeRemaining = preparationTime;
+        gameManager = FindObjectOfType<GameManager>();
 
         // Hide the stats panel initially
         statsPanel.SetActive(false);
@@ -53,22 +46,6 @@ public class GameUIManager : MonoBehaviour
 
     void Update()
     {
-        // Update the time remaining
-        timeRemaining -= Time.deltaTime;
-        if (timeRemaining <= 0)
-        {
-            // Handle phase transition
-            if (currentPhase == "Preparation")
-            {
-                StartAttackPhase();
-            }
-            else if (currentPhase == "Attack")
-            {
-                StartPreparationPhase();
-                currentWave++;
-            }
-        }
-
         if (Input.GetMouseButtonDown(2)) // Middle mouse button pressed
         {
             DeselectTower();
@@ -79,11 +56,11 @@ public class GameUIManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        waveText.text = $"Wave: {currentWave}";
-        phaseText.text = $"Phase: {currentPhase}";
-        moneyText.text = $"Money: {playerMoney}";
-        timeText.text = $"Time: {Mathf.CeilToInt(timeRemaining)}s";
-        healthText.text = $"Health: {playerHealth}";
+        waveText.text = $"Wave: {gameManager.CurrentWave}";
+        phaseText.text = $"Phase: {gameManager.CurrentPhase}";
+        moneyText.text = $"Money: {gameManager.PlayerMoney}";
+        timeText.text = $"Time: {Mathf.CeilToInt(gameManager.TimeRemaining)}s";
+        healthText.text = $"Health: {gameManager.PlayerHealth}";
 
         // Update tower buttons
         for (int i = 0; i < towerButtons.Length; i++)
@@ -101,17 +78,7 @@ public class GameUIManager : MonoBehaviour
 
     public void OnSkipButtonPressed()
     {
-        // Handle skip button press
-        if (currentPhase == "Preparation")
-        {
-            StartAttackPhase();
-        }
-        else if (currentPhase == "Attack")
-        {
-            StartPreparationPhase();
-            currentWave++;
-        }
-
+        gameManager.SkipPhase();
         Debug.Log("Skip Button Pressed");
     }
 
@@ -153,24 +120,6 @@ public class GameUIManager : MonoBehaviour
         statsPanel.SetActive(false);
         Debug.Log("Tower Deselected");
     }
-
-    private void StartPreparationPhase()
-    {
-        currentPhase = "Preparation";
-        timeRemaining = preparationTime;
-        FindObjectOfType<EnemySpawner>().enabled = false;
-        Debug.Log("Preparation Phase Started");
-    }
-
-
-    private void StartAttackPhase()
-    {
-        currentPhase = "Attack";
-        timeRemaining = attackTime;
-        FindObjectOfType<EnemySpawner>().enabled = true;
-        Debug.Log("Attack Phase Started");
-    }
-
 
     // Helper method to add EventTrigger to a GameObject
     private void AddEventTrigger(GameObject obj, EventTriggerType type, UnityEngine.Events.UnityAction action)

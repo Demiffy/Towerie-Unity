@@ -7,10 +7,23 @@ public class InGameConsole : MonoBehaviour
     public TMP_InputField consoleInputField;
     public TextMeshProUGUI consoleOutputText;
     public MapManager mapManager;
-    public GameUIManager gameUIManager;
+    public GameManager gameManager;
     public KeyCode toggleKey = KeyCode.BackQuote;
 
     private bool isConsoleVisible = false;
+
+    private void Start()
+    {
+        if (mapManager == null)
+        {
+            mapManager = FindObjectOfType<MapManager>();
+        }
+
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+    }
 
     private void Update()
     {
@@ -40,12 +53,33 @@ public class InGameConsole : MonoBehaviour
 
     private void ExecuteCommand(string command)
     {
+        if (mapManager == null)
+        {
+            AddToConsoleOutput("MapManager not found.");
+            return;
+        }
+
+        if (gameManager == null)
+        {
+            AddToConsoleOutput("GameManager not found.");
+            return;
+        }
+
         if (command.StartsWith("loadmap "))
         {
             string[] parts = command.Split(' ');
             if (parts.Length == 2 && int.TryParse(parts[1], out int mapIndex))
             {
-                mapManager.LoadMap(mapIndex);
+                int totalMaps = mapManager.GetTotalMaps();
+                if (mapIndex >= 0 && mapIndex < totalMaps)
+                {
+                    mapManager.LoadMap(mapIndex);
+                    AddToConsoleOutput($"Loading map with index {mapIndex}");
+                }
+                else
+                {
+                    AddToConsoleOutput($"Invalid map index. Valid indices are 0 to {totalMaps - 1}");
+                }
             }
             else
             {
@@ -57,8 +91,8 @@ public class InGameConsole : MonoBehaviour
             string[] parts = command.Split(' ');
             if (parts.Length == 2 && int.TryParse(parts[1], out int health))
             {
-                gameUIManager.playerHealth = health;
-                gameUIManager.UpdateUI();
+                gameManager.PlayerHealth = health;
+                FindObjectOfType<GameUIManager>().UpdateUI();
                 AddToConsoleOutput($"Player health set to {health}");
             }
             else
@@ -71,8 +105,8 @@ public class InGameConsole : MonoBehaviour
             string[] parts = command.Split(' ');
             if (parts.Length == 2 && int.TryParse(parts[1], out int money))
             {
-                gameUIManager.playerMoney = money;
-                gameUIManager.UpdateUI();
+                gameManager.PlayerMoney = money;
+                FindObjectOfType<GameUIManager>().UpdateUI();
                 AddToConsoleOutput($"Player money set to {money}");
             }
             else
@@ -85,8 +119,8 @@ public class InGameConsole : MonoBehaviour
             string[] parts = command.Split(' ');
             if (parts.Length == 2 && int.TryParse(parts[1], out int wave))
             {
-                gameUIManager.currentWave = wave;
-                gameUIManager.UpdateUI();
+                gameManager.CurrentWave = wave;
+                FindObjectOfType<GameUIManager>().UpdateUI();
                 AddToConsoleOutput($"Current wave set to {wave}");
             }
             else
