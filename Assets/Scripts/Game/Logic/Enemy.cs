@@ -4,133 +4,151 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public EnemyType enemyType;
-    public float speed = 2f;
-    public int health = 100;
-    public int damage = 10;
-    public int healingAmount = 20;  // For Healer type
-    public float resistance = 0f;   // Damage resistance percentage (0.0 to 1.0)
+	public EnemyType enemyType;
+	public float speed = 2f;
+	public int health = 100;
+	public int damage = 10;
+	public int healingAmount = 20;
+	public float resistance = 0f;
+	public string enemyName = "Enemy";
 
-    private List<Transform> waypoints;
-    private int currentWaypointIndex = 0;
-    private bool isSlowed = false;
-    private float slowDuration = 0f;
+	private List<Transform> waypoints;
+	private int currentWaypointIndex = 0;
+	private bool isSlowed = false;
+	private float slowDuration = 0f;
+	private GameObject uiPanelInstance;
 
-    public void Initialize(List<Transform> pathWaypoints)
-    {
-        waypoints = pathWaypoints;
-        transform.position = waypoints[currentWaypointIndex].position;
+	public GameObject uiPanelPrefab; // Assign this in the inspector
 
-        GetComponent<SpriteRenderer>().sortingOrder = 5;
-    }
+	private Canvas gameUICanvas; // Reference to the GameUICanvas
 
-    void Update()
-    {
-        Move();
-        HandleStatusEffects();
-    }
+	public void Initialize(List<Transform> pathWaypoints)
+	{
+		waypoints = pathWaypoints;
+		transform.position = waypoints[currentWaypointIndex].position;
 
-    private void Move()
-    {
-        if (currentWaypointIndex < waypoints.Count)
-        {
-            Vector3 targetPosition = waypoints[currentWaypointIndex].position;
-            Vector3 movementDirection = (targetPosition - transform.position).normalized;
-            transform.position += movementDirection * speed * Time.deltaTime;
+		GetComponent<SpriteRenderer>().sortingOrder = 5;
 
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-            {
-                currentWaypointIndex++;
+		// Find the GameUICanvas at runtime
+		gameUICanvas = FindObjectOfType<Canvas>();
+	}
 
-                if (currentWaypointIndex >= waypoints.Count)
-                {
-                    ReachEndOfPath();
-                }
-            }
-        }
-    }
+	void Update()
+	{
+		Move();
+		HandleStatusEffects();
+	}
 
-    private void ReachEndOfPath()
-    {
-        Destroy(gameObject);
-        GameManager gameManager = FindObjectOfType<GameManager>();
-        gameManager.PlayerHealth -= damage;
-        FindObjectOfType<GameUIManager>().UpdateUI();
+	private void Move()
+	{
+		if (currentWaypointIndex < waypoints.Count)
+		{
+			Vector3 targetPosition = waypoints[currentWaypointIndex].position;
+			Vector3 movementDirection = (targetPosition - transform.position).normalized;
+			transform.position += movementDirection * speed * Time.deltaTime;
 
-        if (gameManager.PlayerHealth <= 0)
-        {
-            gameManager.EndGame();
-        }
-    }
+			if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+			{
+				currentWaypointIndex++;
 
-    public void TakeDamage(int damage)
-    {
-        // Apply damage resistance
-        int actualDamage = Mathf.RoundToInt(damage * (1f - resistance));
-        health -= actualDamage;
+				if (currentWaypointIndex >= waypoints.Count)
+				{
+					ReachEndOfPath();
+				}
+			}
+		}
+	}
 
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
+	private void ReachEndOfPath()
+	{
+		Destroy(gameObject);
+		GameManager gameManager = FindObjectOfType<GameManager>();
+		gameManager.PlayerHealth -= damage;
+		FindObjectOfType<GameUIManager>().UpdateUI();
 
-    private void Die()
-    {
-        if (enemyType == EnemyType.Healer)
-        {
-            HealNearbyEnemies();
-        }
+		if (gameManager.PlayerHealth <= 0)
+		{
+			gameManager.EndGame();
+		}
+	}
 
-        Destroy(gameObject);
-    }
+	public void TakeDamage(int damage)
+	{
+		int actualDamage = Mathf.RoundToInt(damage * (1f - resistance));
+		health -= actualDamage;
 
-    private void HealNearbyEnemies()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5f);
-        foreach (var hitCollider in hitColliders)
-        {
-            Enemy enemy = hitCollider.GetComponent<Enemy>();
-            if (enemy != null && enemy != this)
-            {
-                enemy.health += healingAmount;
-            }
-        }
-    }
+		if (health <= 0)
+		{
+			Die();
+		}
+	}
 
-    private void HandleStatusEffects()
-    {
-        if (isSlowed)
-        {
-            slowDuration -= Time.deltaTime;
-            if (slowDuration <= 0)
-            {
-                isSlowed = false;
-                speed *= 2;  // Reset speed to normal
-            }
-        }
-    }
+	private void Die()
+	{
+		if (enemyType == EnemyType.Healer)
+		{
+			HealNearbyEnemies();
+		}
 
-    public void ApplySlow(float duration)
-    {
-        isSlowed = true;
-        slowDuration = duration;
-        speed /= 2;  // Reduce speed
-    }
+		Destroy(uiPanelInstance); // Destroy the UI panel if the enemy dies
+		Destroy(gameObject);
+	}
 
-    public void ApplyPoison(int damageOverTime, float duration)
-    {
-        StartCoroutine(PoisonCoroutine(damageOverTime, duration));
-    }
+	private void HealNearbyEnemies()
+	{
+		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5f);
+		foreach (var hitCollider in hitColliders)
+		{
+			Enemy enemy = hitCollider.GetComponent<Enemy>();
+			if (enemy != null && enemy != this)
+			{
+				enemy.health += healingAmount;
+			}
+		}
+	}
 
-    private IEnumerator PoisonCoroutine(int damageOverTime, float duration)
-    {
-        float interval = 1f; // Damage every second
-        while (duration > 0)
-        {
-            TakeDamage(damageOverTime);
-            yield return new WaitForSeconds(interval);
-            duration -= interval;
-        }
-    }
+	private void HandleStatusEffects()
+	{
+		if (isSlowed)
+		{
+			slowDuration -= Time.deltaTime;
+			if (slowDuration <= 0)
+			{
+				isSlowed = false;
+				speed *= 2; // Reset speed to normal
+			}
+		}
+	}
+
+	public void ApplySlow(float duration)
+	{
+		isSlowed = true;
+		slowDuration = duration;
+		speed /= 2; // Reduce speed
+	}
+
+	public void ApplyPoison(int damageOverTime, float duration)
+	{
+		StartCoroutine(PoisonCoroutine(damageOverTime, duration));
+	}
+
+	private IEnumerator PoisonCoroutine(int damageOverTime, float duration)
+	{
+		float interval = 1f; // Damage every second
+		while (duration > 0)
+		{
+			TakeDamage(damageOverTime);
+			yield return new WaitForSeconds(interval);
+			duration -= interval;
+		}
+	}
+
+	void OnMouseDown()
+	{
+		if (uiPanelInstance == null && gameUICanvas != null)
+		{
+			uiPanelInstance = Instantiate(uiPanelPrefab, gameUICanvas.transform);
+			uiPanelInstance.GetComponent<EnemyUIPanel>().Initialize(transform, enemyName, enemyType.ToString());
+		}
+	}
 }
