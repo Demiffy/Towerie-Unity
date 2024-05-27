@@ -6,12 +6,13 @@ public class Enemy : MonoBehaviour
 {
 	public EnemyType enemyType;
 	public float speed = 2f;
-	public int health = 100;
+	public int maxHealth = 100;  // Max health
 	public int damage = 10;
 	public int healingAmount = 20;
 	public float resistance = 0f;
 	public string enemyName = "Enemy";
 
+	private int currentHealth; // Current health
 	private List<Transform> waypoints;
 	private int currentWaypointIndex = 0;
 	private bool isSlowed = false;
@@ -19,8 +20,12 @@ public class Enemy : MonoBehaviour
 	private GameObject uiPanelInstance;
 
 	public GameObject uiPanelPrefab; // Assign this in the inspector
-
 	private Canvas gameUICanvas; // Reference to the GameUICanvas
+
+	void Awake()
+	{
+		currentHealth = maxHealth; // Initialize current health
+	}
 
 	public void Initialize(List<Transform> pathWaypoints)
 	{
@@ -75,9 +80,9 @@ public class Enemy : MonoBehaviour
 	public void TakeDamage(int damage)
 	{
 		int actualDamage = Mathf.RoundToInt(damage * (1f - resistance));
-		health -= actualDamage;
+		currentHealth -= actualDamage;
 
-		if (health <= 0)
+		if (currentHealth <= 0)
 		{
 			Die();
 		}
@@ -102,7 +107,11 @@ public class Enemy : MonoBehaviour
 			Enemy enemy = hitCollider.GetComponent<Enemy>();
 			if (enemy != null && enemy != this)
 			{
-				enemy.health += healingAmount;
+				enemy.currentHealth += healingAmount;
+				if (enemy.currentHealth > enemy.maxHealth)
+				{
+					enemy.currentHealth = enemy.maxHealth;
+				}
 			}
 		}
 	}
@@ -148,7 +157,17 @@ public class Enemy : MonoBehaviour
 		if (uiPanelInstance == null && gameUICanvas != null)
 		{
 			uiPanelInstance = Instantiate(uiPanelPrefab, gameUICanvas.transform);
-			uiPanelInstance.GetComponent<EnemyUIPanel>().Initialize(transform, enemyName, enemyType.ToString());
+			uiPanelInstance.GetComponent<EnemyUIPanel>().Initialize(transform, enemyName, enemyType.ToString(), currentHealth, maxHealth);
 		}
+	}
+
+	public int GetCurrentHealth()
+	{
+		return currentHealth;
+	}
+
+	public int GetMaxHealth()
+	{
+		return maxHealth;
 	}
 }

@@ -9,12 +9,15 @@ public class EnemyUIPanel : MonoBehaviour
 	public RectTransform panelBackground; // Reference to the panel's background RectTransform
 
 	private Transform targetEnemy;
+	private int maxHealth;
 
-	public void Initialize(Transform enemy, string name, string type)
+	public void Initialize(Transform enemy, string name, string type, int currentHealth, int maxHealth)
 	{
 		targetEnemy = enemy;
 		nameText.text = name;
 		typeText.text = type;
+		this.maxHealth = maxHealth;
+		UpdateHealth(currentHealth);
 	}
 
 	void Update()
@@ -27,12 +30,17 @@ public class EnemyUIPanel : MonoBehaviour
 			Enemy enemy = targetEnemy.GetComponent<Enemy>();
 			if (enemy != null)
 			{
-				healthText.text = $"Health: {enemy.health}";
+				UpdateHealth(enemy.GetCurrentHealth());
 			}
 		}
 		else
 		{
 			Destroy(gameObject); // Destroy the panel if the enemy is destroyed
 		}
+	}
+
+	private void UpdateHealth(int currentHealth)
+	{
+		healthText.text = $"Health: {currentHealth} / {maxHealth}";
 	}
 }

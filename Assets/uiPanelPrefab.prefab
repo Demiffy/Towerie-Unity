@@ -230,7 +230,7 @@ MonoBehaviour:
   nameText: {fileID: 5088774107363951689}
   typeText: {fileID: 2694275413199123142}
   healthText: {fileID: 9061416695008766872}
-  panelBackground: {fileID: 4458559277105434493}
+  healthBarForeground: {fileID: 0}
 --- !u!1 &741143928217582919
 GameObject:
   m_ObjectHideFlags: 0

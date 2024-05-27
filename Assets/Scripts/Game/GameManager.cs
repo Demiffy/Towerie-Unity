@@ -122,4 +122,12 @@ public class GameManager : MonoBehaviour
             Destroy(enemy.gameObject);
         }
     }
+
+    public void DamageAllEnemies(int damage)
+    {
+	    foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+	    {
+		    enemy.TakeDamage(damage);
+	    }
+    }
 }
