@@ -639,6 +639,7 @@ MonoBehaviour:
   endGameWaveText: {fileID: 8833603087771750037}
   endGameEnemiesKilledText: {fileID: 7458760354380052865}
   endGameMainMenuButton: {fileID: 8812625650452304494}
+  moneyPopupPrefab: {fileID: 3710083708516332280, guid: e5e7698db07ae5e4395994e44ab5587b, type: 3}
 --- !u!4 &237834240
 Transform:
   m_ObjectHideFlags: 0
@@ -3612,7 +3613,7 @@ MonoBehaviour:
   consoleInputField: {fileID: 2116359896}
   consoleOutputText: {fileID: 1485698185}
   mapManager: {fileID: 84918507}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1026037781}
   toggleKey: 96
 --- !u!1 &1510625070
 GameObject:
@@ -4619,7 +4620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5473540099215517271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4762,7 +4763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000019073, y: -0.0000038147}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 330.6985, y: 285.3477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7404945775863832383
