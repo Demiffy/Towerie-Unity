@@ -29,12 +29,14 @@ public class GameUIManager : MonoBehaviour
     public GameObject moneyPopupPrefab;
 
     private GameManager gameManager;
+    private TowerPlacementManager towerPlacementManager;
     private int selectedTowerIndex = -1;
     private List<GameObject> moneyPopups = new List<GameObject>();
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        towerPlacementManager = FindObjectOfType<TowerPlacementManager>();
 
         // Hide the stats panel and end game panel initially
         statsPanel.SetActive(false);
@@ -95,6 +97,7 @@ public class GameUIManager : MonoBehaviour
     {
         selectedTowerIndex = index;
         ShowTowerStats(index);
+        towerPlacementManager.StartPlacingTower(index);
         Debug.Log($"Tower Button {index + 1} Pressed");
     }
 
@@ -125,6 +128,11 @@ public class GameUIManager : MonoBehaviour
         selectedTowerIndex = -1;
         statsPanel.SetActive(false);
         Debug.Log("Tower Deselected");
+    }
+
+    public void HideStatsPanel()
+    {
+        statsPanel.SetActive(false);
     }
 
     public void ShowWaveComplete()

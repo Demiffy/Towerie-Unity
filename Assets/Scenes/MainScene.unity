@@ -2690,6 +2690,7 @@ Transform:
   - {fileID: 1490385299}
   - {fileID: 84918508}
   - {fileID: 494431805}
+  - {fileID: 2054950803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1026037781
@@ -4230,6 +4231,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043184743}
   m_CullTransparentMesh: 1
+--- !u!1 &2054950802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2054950803}
+  - component: {fileID: 2054950804}
+  m_Layer: 0
+  m_Name: TowerPlacementManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2054950803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054950802}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1026037780}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2054950804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054950802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eda1375c9bb57546ad426faaa45270d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefabs:
+  - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
+  mainCamera: {fileID: 519420031}
+  minTowerDistance: 0.6
+  minPathDistance: 0.9
+  minObstacleDistance: 1
 --- !u!1 &2116359894
 GameObject:
   m_ObjectHideFlags: 0
