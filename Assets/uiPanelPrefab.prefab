@@ -175,7 +175,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -825.5771, y: -529.7454}
+  m_SizeDelta: {x: -712.4666, y: -442.8282}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3301598530940644618
 CanvasRenderer:
@@ -230,7 +230,7 @@ MonoBehaviour:
   nameText: {fileID: 5088774107363951689}
   typeText: {fileID: 2694275413199123142}
   healthText: {fileID: 9061416695008766872}
-  healthBarForeground: {fileID: 0}
+  panelBackground: {fileID: 0}
 --- !u!1 &741143928217582919
 GameObject:
   m_ObjectHideFlags: 0
