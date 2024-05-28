@@ -41,6 +41,6 @@ public class EnemyUIPanel : MonoBehaviour
 
 	private void UpdateHealth(int currentHealth)
 	{
-		healthText.text = $"Health: {currentHealth} / {maxHealth}";
+		healthText.text = $"{currentHealth} / {maxHealth}";
 	}
 }

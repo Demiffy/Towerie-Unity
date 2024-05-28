@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   speed: 3
-  health: 30
+  maxHealth: 30
   damage: 15
   healingAmount: 0
   resistance: 0
