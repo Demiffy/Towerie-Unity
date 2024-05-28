@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -119,6 +120,18 @@ public class GameUIManager : MonoBehaviour
         selectedTowerIndex = -1;
         statsPanel.SetActive(false);
         Debug.Log("Tower Deselected");
+    }
+
+    public void ShowWaveComplete()
+    {
+        StartCoroutine(WaveCompleteCoroutine());
+    }
+
+    private IEnumerator WaveCompleteCoroutine()
+    {
+        waveText.color = Color.green;
+        yield return new WaitForSeconds(1f); // Wait for 1 second
+        waveText.color = Color.white;
     }
 
     // Helper method to add EventTrigger to a GameObject

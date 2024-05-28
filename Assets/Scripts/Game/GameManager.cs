@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         timeRemaining = preparationTime;
         enemySpawner.StopSpawning();
         Debug.Log("Preparation Phase Started");
+        FindObjectOfType<GameUIManager>().ShowWaveComplete();
     }
 
     private void StartAttackPhase()
