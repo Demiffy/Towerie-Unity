@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public int healingAmount = 20;
     public float resistance = 0f;
     public string enemyName = "Enemy";
+    public bool isCamouflaged = false;
 
     private int currentHealth;
     private List<Transform> waypoints;
@@ -80,6 +81,12 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isCamouflaged)
+        {
+            Debug.Log("Enemy is camouflaged and cannot be damaged.");
+            return;
+        }
+
         int actualDamage = Mathf.RoundToInt(damage * (1f - resistance));
         currentHealth -= actualDamage;
 

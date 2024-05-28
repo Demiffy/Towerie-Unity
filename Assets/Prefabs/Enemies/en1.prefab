@@ -174,8 +174,9 @@ MonoBehaviour:
   enemyType: 0
   speed: 2
   maxHealth: 80
-  damage: 10
+  baseDamage: 10
   healingAmount: 0
   resistance: 0
   enemyName: Sample1
+  isCamouflaged: 1
   uiPanelPrefab: {fileID: 665596658048638521, guid: e8596c4a87833fd44a7010ae5e4609e6, type: 3}

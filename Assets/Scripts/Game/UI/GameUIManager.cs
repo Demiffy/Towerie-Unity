@@ -26,7 +26,7 @@ public class GameUIManager : MonoBehaviour
     public TextMeshProUGUI endGameWaveText;
     public TextMeshProUGUI endGameEnemiesKilledText;
     public Button endGameMainMenuButton;
-    public GameObject moneyPopupPrefab; // Assign this in the inspector
+    public GameObject moneyPopupPrefab;
 
     private GameManager gameManager;
     private int selectedTowerIndex = -1;
@@ -158,7 +158,7 @@ public class GameUIManager : MonoBehaviour
         Vector3 moneyTextPosition = moneyText.transform.position;
         Vector3 spawnPosition = new Vector3(moneyTextPosition.x, moneyTextPosition.y - (moneyPopups.Count * 20) - 20, moneyTextPosition.z); // Adjust Y-offset to make them closer
         GameObject popup = Instantiate(moneyPopupPrefab, spawnPosition, Quaternion.identity, moneyText.transform.parent);
-        popup.transform.localScale = new Vector3(1, 25, 1); // Ensure the scale is correct
+        popup.transform.localScale = new Vector3(1, 25, 1);
         popup.GetComponent<TextMeshProUGUI>().text = $"+{amount}";
         moneyPopups.Add(popup);
         StartCoroutine(FadeAndDestroyPopup(popup));
