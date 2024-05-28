@@ -21,6 +21,11 @@ public class GameUIManager : MonoBehaviour
     public GameObject statsPanel;
     public TextMeshProUGUI statsText;
 
+    public GameObject endGamePanel; // Assign this in the inspector
+    public TextMeshProUGUI endGameWaveText; // Assign this in the inspector
+    public TextMeshProUGUI endGameEnemiesKilledText; // Assign this in the inspector
+    public Button endGameMainMenuButton; // Assign this in the inspector
+
     private GameManager gameManager;
     private int selectedTowerIndex = -1;
 
@@ -28,8 +33,9 @@ public class GameUIManager : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        // Hide the stats panel initially
+        // Hide the stats panel and end game panel initially
         statsPanel.SetActive(false);
+        endGamePanel.SetActive(false);
 
         // Assign onClick listeners
         for (int i = 0; i < towerButtons.Length; i++)
@@ -41,6 +47,7 @@ public class GameUIManager : MonoBehaviour
         }
 
         skipButton.onClick.AddListener(OnSkipButtonPressed);
+        endGameMainMenuButton.onClick.AddListener(OnMainMenuButtonPressed);
 
         UpdateUI();
     }
@@ -132,6 +139,26 @@ public class GameUIManager : MonoBehaviour
         waveText.color = Color.green;
         yield return new WaitForSeconds(1f); // Wait for 1 second
         waveText.color = Color.white;
+    }
+
+    public void ShowEndGamePanel(int wavesSurvived, int enemiesKilled)
+    {
+        // Pause the game
+        Time.timeScale = 0f;
+
+        // Display the end game panel
+        endGamePanel.SetActive(true);
+        endGameWaveText.text = $"Waves Survived: {wavesSurvived}";
+        endGameEnemiesKilledText.text = $"Enemies Killed: {enemiesKilled}";
+    }
+
+    private void OnMainMenuButtonPressed()
+    {
+        // Unpause the game
+        Time.timeScale = 1f;
+
+        // Load the main menu scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     // Helper method to add EventTrigger to a GameObject

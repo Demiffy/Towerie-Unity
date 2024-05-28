@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public float attackTime = 20f;
     public int playerMoney = 1000;
     public int playerHealth = 100;
+    private int enemiesKilled = 0;
 
     private string currentPhase = "Preparation";
     private float timeRemaining;
@@ -25,11 +26,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // Update the time remaining
         timeRemaining -= Time.deltaTime;
         if (timeRemaining <= 0)
         {
-            // Handle phase transition
             if (currentPhase == "Preparation")
             {
                 StartAttackPhase();
@@ -100,20 +99,14 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log($"Game Over! Highest wave reached: {currentWave}");
-        StartCoroutine(EndGameSequence());
+        FindObjectOfType<GameUIManager>().ShowEndGamePanel(currentWave, enemiesKilled);
     }
 
     private IEnumerator EndGameSequence()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        // Perform cleanup actions after the main menu is loaded
-        DestroyAllEnemies();
-        mapManager.UnloadCurrentMap();
+        FindObjectOfType<GameUIManager>().ShowEndGamePanel(currentWave, enemiesKilled);
+        Time.timeScale = 0f;
+        yield return null;
     }
 
     private void DestroyAllEnemies()
@@ -126,9 +119,20 @@ public class GameManager : MonoBehaviour
 
     public void DamageAllEnemies(int damage)
     {
-	    foreach (Enemy enemy in FindObjectsOfType<Enemy>())
-	    {
-		    enemy.TakeDamage(damage);
-	    }
+        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        {
+            enemy.TakeDamage(damage);
+        }
+    }
+
+    public void IncreaseEnemiesKilled()
+    {
+        enemiesKilled++;
+    }
+
+    public void AddMoney(int amount)
+    {
+        playerMoney += amount;
+        FindObjectOfType<GameUIManager>().UpdateUI();
     }
 }
