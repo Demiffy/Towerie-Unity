@@ -97,14 +97,18 @@ public class Enemy : MonoBehaviour
         }
 
         GameManager gameManager = FindObjectOfType<GameManager>();
+        int moneyReward = GetMoneyReward();
+
         gameManager.IncreaseEnemiesKilled();
-        gameManager.AddMoney(GetMoneyReward());
+        gameManager.AddMoney(moneyReward);
+
+        FindObjectOfType<GameUIManager>().ShowMoneyPopup(moneyReward);
 
         Destroy(uiPanelInstance);
         Destroy(gameObject);
     }
 
-    private int GetMoneyReward()
+    public int GetMoneyReward()
     {
         switch (enemyType)
         {

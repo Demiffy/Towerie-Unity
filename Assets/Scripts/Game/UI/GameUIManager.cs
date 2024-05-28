@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -21,13 +22,15 @@ public class GameUIManager : MonoBehaviour
     public GameObject statsPanel;
     public TextMeshProUGUI statsText;
 
-    public GameObject endGamePanel; // Assign this in the inspector
-    public TextMeshProUGUI endGameWaveText; // Assign this in the inspector
-    public TextMeshProUGUI endGameEnemiesKilledText; // Assign this in the inspector
-    public Button endGameMainMenuButton; // Assign this in the inspector
+    public GameObject endGamePanel;
+    public TextMeshProUGUI endGameWaveText;
+    public TextMeshProUGUI endGameEnemiesKilledText;
+    public Button endGameMainMenuButton;
+    public GameObject moneyPopupPrefab; // Assign this in the inspector
 
     private GameManager gameManager;
     private int selectedTowerIndex = -1;
+    private List<GameObject> moneyPopups = new List<GameObject>();
 
     void Start()
     {
@@ -73,10 +76,8 @@ public class GameUIManager : MonoBehaviour
         // Update tower buttons
         for (int i = 0; i < towerButtons.Length; i++)
         {
-            // Tower data will come from a script class in the future
             towerNames[i].text = $"Tower {i + 1}";
             towerPrices[i].text = $"$100";
-            // Assign images to tower buttons
             if (i < towerSprites.Length)
             {
                 towerImages[i].sprite = towerSprites[i];
@@ -92,7 +93,6 @@ public class GameUIManager : MonoBehaviour
 
     public void OnTowerButtonClicked(int index)
     {
-        // Handle tower button press
         selectedTowerIndex = index;
         ShowTowerStats(index);
         Debug.Log($"Tower Button {index + 1} Pressed");
@@ -100,7 +100,6 @@ public class GameUIManager : MonoBehaviour
 
     public void OnTowerButtonHover(int index)
     {
-        // Show tower stats on hover only if no tower is selected
         if (selectedTowerIndex == -1)
         {
             ShowTowerStats(index);
@@ -109,7 +108,6 @@ public class GameUIManager : MonoBehaviour
 
     public void OnTowerButtonExit()
     {
-        // Hide tower stats if no tower is selected
         if (selectedTowerIndex == -1)
         {
             statsPanel.SetActive(false);
@@ -143,10 +141,7 @@ public class GameUIManager : MonoBehaviour
 
     public void ShowEndGamePanel(int wavesSurvived, int enemiesKilled)
     {
-        // Pause the game
         Time.timeScale = 0f;
-
-        // Display the end game panel
         endGamePanel.SetActive(true);
         endGameWaveText.text = $"Waves Survived: {wavesSurvived}";
         endGameEnemiesKilledText.text = $"Enemies Killed: {enemiesKilled}";
@@ -154,14 +149,39 @@ public class GameUIManager : MonoBehaviour
 
     private void OnMainMenuButtonPressed()
     {
-        // Unpause the game
         Time.timeScale = 1f;
-
-        // Load the main menu scene
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
-    // Helper method to add EventTrigger to a GameObject
+    public void ShowMoneyPopup(int amount)
+    {
+        Vector3 moneyTextPosition = moneyText.transform.position;
+        Vector3 spawnPosition = new Vector3(moneyTextPosition.x, moneyTextPosition.y - (moneyPopups.Count * 20) - 20, moneyTextPosition.z); // Adjust Y-offset to make them closer
+        GameObject popup = Instantiate(moneyPopupPrefab, spawnPosition, Quaternion.identity, moneyText.transform.parent);
+        popup.transform.localScale = new Vector3(1, 25, 1); // Ensure the scale is correct
+        popup.GetComponent<TextMeshProUGUI>().text = $"+{amount}";
+        moneyPopups.Add(popup);
+        StartCoroutine(FadeAndDestroyPopup(popup));
+    }
+
+    private IEnumerator FadeAndDestroyPopup(GameObject popup)
+    {
+        TextMeshProUGUI text = popup.GetComponent<TextMeshProUGUI>();
+        Color originalColor = text.color;
+        float duration = 1f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            text.color = Color.Lerp(originalColor, Color.clear, elapsedTime / duration);
+            yield return null;
+        }
+
+        moneyPopups.Remove(popup);
+        Destroy(popup);
+    }
+
     private void AddEventTrigger(GameObject obj, EventTriggerType type, UnityEngine.Events.UnityAction action)
     {
         EventTrigger trigger = obj.GetComponent<EventTrigger>();

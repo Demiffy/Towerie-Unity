@@ -125,6 +125,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void KillAllEnemies()
+    {
+        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        {
+            int moneyReward = enemy.GetMoneyReward();
+            IncreaseEnemiesKilled();
+            AddMoney(moneyReward);
+            FindObjectOfType<GameUIManager>().ShowMoneyPopup(moneyReward);
+            Destroy(enemy.gameObject);
+        }
+    }
+
     public void IncreaseEnemiesKilled()
     {
         enemiesKilled++;

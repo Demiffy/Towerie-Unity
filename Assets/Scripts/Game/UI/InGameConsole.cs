@@ -141,6 +141,11 @@ public class InGameConsole : MonoBehaviour
                 AddToConsoleOutput("Invalid command format. Use: damageallenemies <value>");
             }
         }
+        else if (command.StartsWith("killallenemies", System.StringComparison.OrdinalIgnoreCase))
+        {
+            gameManager.KillAllEnemies();
+            AddToConsoleOutput("All enemies killed.");
+        }
         else if (command.Equals("clear", System.StringComparison.OrdinalIgnoreCase))
         {
             ClearConsole();
@@ -173,6 +178,7 @@ public class InGameConsole : MonoBehaviour
                              "setmoney <value> - Set the player's money.\n" +
                              "setwave <value> - Set the current wave.\n" +
                              "damageallenemies <value> - Damage all enemies by the specified value.\n" +
+                             "killallenemies - Kill all enemies.\n" +
                              "clear - Clear the console output.\n" +
                              "help - Show this help message.";
         AddToConsoleOutput(helpMessage);
