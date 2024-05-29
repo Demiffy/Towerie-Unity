@@ -629,7 +629,7 @@ MonoBehaviour:
   - {fileID: 809585442}
   towerSprites:
   - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
-  - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
+  - {fileID: 21300000, guid: cc3aaf0f874de144caf9467957976d8a, type: 3}
   - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
   - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
   skipButton: {fileID: 345273441}
@@ -2199,8 +2199,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 342, y: 130}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 3.294, y: 174.25}
+  m_SizeDelta: {x: 155.658, y: 53.263}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642798643
 MonoBehaviour:
@@ -4413,7 +4413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefabs:
   - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
-  - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
+  - {fileID: 5618208453026207756, guid: ae478130642f38745acf87c0c691dd93, type: 3}
   - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
   - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
   mainCamera: {fileID: 519420031}
