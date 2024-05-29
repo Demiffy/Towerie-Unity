@@ -17,6 +17,7 @@ public class Tower : MonoBehaviour
     private List<Enemy> enemiesInRange = new List<Enemy>();
     private Enemy targetEnemy;
     private bool isPlaced = false;
+    private float rotationSpeed = 5f;
 
     void Awake()
     {
@@ -40,9 +41,11 @@ public class Tower : MonoBehaviour
     {
         if (!isPlaced) return;
 
-        if (targetEnemy == null || !enemiesInRange.Contains(targetEnemy))
+        SelectTarget();
+
+        if (targetEnemy != null)
         {
-            SelectTarget();
+            LookAtTarget();
         }
     }
 
@@ -105,6 +108,17 @@ public class Tower : MonoBehaviour
         if (targetEnemy != null)
         {
             Debug.Log($"{towerName} is tracking {targetEnemy.enemyName}");
+        }
+    }
+
+    private void LookAtTarget()
+    {
+        if (targetEnemy != null)
+        {
+            Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
     }
 
