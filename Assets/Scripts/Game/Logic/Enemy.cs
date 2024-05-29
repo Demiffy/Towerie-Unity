@@ -203,4 +203,15 @@ public class Enemy : MonoBehaviour
     {
         return maxHealth;
     }
+
+    public float GetDistanceAlongPath()
+    {
+        float distance = 0f;
+        for (int i = 0; i < currentWaypointIndex - 1; i++)
+        {
+            distance += Vector3.Distance(waypoints[i].position, waypoints[i + 1].position);
+        }
+        distance += Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position);
+        return distance;
+    }
 }

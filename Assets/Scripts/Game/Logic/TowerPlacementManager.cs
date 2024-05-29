@@ -61,6 +61,7 @@ public class TowerPlacementManager : MonoBehaviour
         currentTower = Instantiate(towerPrefabs[towerIndex]);
         tower = currentTower.GetComponent<Tower>();
         tower.ShowRangeIndicator();
+        tower.DisableRangeCollider();
         isPlacingTower = true;
     }
 
@@ -156,6 +157,8 @@ public class TowerPlacementManager : MonoBehaviour
                 gameManager.PlayerMoney -= tower.cost;
                 placedTowers.Add(currentTower);
                 tower.HideRangeIndicator();
+                tower.EnableRangeCollider();
+                tower.SetPlaced(true);
                 currentTower = null;
                 isPlacingTower = false;
 
