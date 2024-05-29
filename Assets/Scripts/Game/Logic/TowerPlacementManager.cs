@@ -16,6 +16,12 @@ public class TowerPlacementManager : MonoBehaviour
     private Tilemap pathTilemap;
     private Tilemap backgroundTilemap;
     private Tilemap obstaclesTilemap;
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     void Update()
     {
@@ -38,6 +44,14 @@ public class TowerPlacementManager : MonoBehaviour
     public void StartPlacingTower(int towerIndex)
     {
         if (towerIndex < 0 || towerIndex >= towerPrefabs.Length) return;
+
+        Tower tower = towerPrefabs[towerIndex].GetComponent<Tower>();
+
+        if (gameManager.PlayerMoney < tower.cost)
+        {
+            Debug.Log("Not enough money to place this tower!");
+            return;
+        }
 
         if (currentTower != null)
         {
@@ -133,11 +147,21 @@ public class TowerPlacementManager : MonoBehaviour
 
         if (IsValidPlacement(towerPosition))
         {
-            placedTowers.Add(currentTower);
-            currentTower = null;
-            isPlacingTower = false;
+            Tower tower = currentTower.GetComponent<Tower>();
 
-            FindObjectOfType<GameUIManager>().HideStatsPanel();
+            if (gameManager.PlayerMoney >= tower.cost)
+            {
+                gameManager.PlayerMoney -= tower.cost;
+                placedTowers.Add(currentTower);
+                currentTower = null;
+                isPlacingTower = false;
+
+                FindObjectOfType<GameUIManager>().HideStatsPanel();
+            }
+            else
+            {
+                Debug.Log("Not enough money to place this tower!");
+            }
         }
     }
 

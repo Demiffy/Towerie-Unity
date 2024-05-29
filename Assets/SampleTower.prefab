@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8194280343724696979}
   - component: {fileID: 8052198952061441003}
+  - component: {fileID: 6406486508904713087}
   m_Layer: 0
   m_Name: SampleTower
   m_TagString: Untagged
@@ -84,3 +85,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6406486508904713087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8292599975625055489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e78adf3cc498c4baedaa0c07e3ecb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerName: Hewwo
+  cost: 120
+  damage: 122
+  range: 33
+  fireRate: 345
