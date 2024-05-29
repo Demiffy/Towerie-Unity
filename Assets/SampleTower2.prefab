@@ -100,6 +100,7 @@ MonoBehaviour:
   towerName: Protogen
   cost: 200
   damage: 20
-  range: 13
+  range: 10
   fireRate: 98
   canSeeCamo: 1
+  rangeIndicatorPrefab: {fileID: 81438457505424406, guid: 777981aeda1cae34bb65e9683df224f5, type: 3}

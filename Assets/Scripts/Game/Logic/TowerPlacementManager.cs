@@ -59,6 +59,8 @@ public class TowerPlacementManager : MonoBehaviour
         }
 
         currentTower = Instantiate(towerPrefabs[towerIndex]);
+        tower = currentTower.GetComponent<Tower>();
+        tower.ShowRangeIndicator();
         isPlacingTower = true;
     }
 
@@ -153,6 +155,7 @@ public class TowerPlacementManager : MonoBehaviour
             {
                 gameManager.PlayerMoney -= tower.cost;
                 placedTowers.Add(currentTower);
+                tower.HideRangeIndicator();
                 currentTower = null;
                 isPlacingTower = false;
 
@@ -173,6 +176,11 @@ public class TowerPlacementManager : MonoBehaviour
             currentTower = null;
             isPlacingTower = false;
         }
+    }
+
+    public bool IsPlacingTower()
+    {
+        return isPlacingTower;
     }
 
     public void SetPathTilemap(Tilemap tilemap)
