@@ -583,6 +583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 237834240}
   - component: {fileID: 237834239}
+  - component: {fileID: 237834241}
   m_Layer: 0
   m_Name: UI Manager
   m_TagString: Untagged
@@ -630,11 +631,9 @@ MonoBehaviour:
   towerSprites:
   - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
   - {fileID: 21300000, guid: cc3aaf0f874de144caf9467957976d8a, type: 3}
-  - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
-  - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
+  - {fileID: 21300000, guid: f45f941697c3d9b4b89aaf17b033a9f0, type: 3}
+  - {fileID: 21300000, guid: d43bbc92aec73e44fbed76782b7e4f48, type: 3}
   skipButton: {fileID: 345273441}
-  statsPanel: {fileID: 1097745488}
-  statsText: {fileID: 642798643}
   notEnoughMoneyText: {fileID: 587281783}
   endGamePanel: {fileID: 3025905592294488827}
   endGameWaveText: {fileID: 8833603087771750037}
@@ -656,6 +655,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1026037780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &237834241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237834238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dde5c99601b85344a7a47ade5ec29ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsPanel: {fileID: 1097745488}
+  statsText: {fileID: 642798643}
 --- !u!1 &261321569
 GameObject:
   m_ObjectHideFlags: 0
@@ -4414,8 +4427,8 @@ MonoBehaviour:
   towerPrefabs:
   - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
   - {fileID: 5618208453026207756, guid: ae478130642f38745acf87c0c691dd93, type: 3}
-  - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
-  - {fileID: 8292599975625055489, guid: 83a55f72707b7d54d8a8141e9c60adda, type: 3}
+  - {fileID: 241092708576578181, guid: 3fa23414d9a48f548824488e2a46fd4b, type: 3}
+  - {fileID: 9061491963757283870, guid: 84f9948873cdece45980c3e685c26eed, type: 3}
   mainCamera: {fileID: 519420031}
   minTowerDistance: 0.6
   minPathDistance: 0.9

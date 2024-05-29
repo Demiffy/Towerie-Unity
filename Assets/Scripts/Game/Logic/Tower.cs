@@ -107,7 +107,7 @@ public class Tower : MonoBehaviour
 
         if (targetEnemy != null)
         {
-            Debug.Log($"{towerName} is tracking {targetEnemy.enemyName}");
+            //Debug.Log($"{towerName} is tracking {targetEnemy.enemyName}");
         }
     }
 
@@ -127,7 +127,6 @@ public class Tower : MonoBehaviour
         if (isPlaced && enemy != null && (!enemy.isCamouflaged || canSeeCamo))
         {
             enemiesInRange.Add(enemy);
-            Debug.Log($"{towerName} sees {enemy.enemyName}");
         }
     }
 
@@ -136,7 +135,6 @@ public class Tower : MonoBehaviour
         if (enemy != null)
         {
             enemiesInRange.Remove(enemy);
-            Debug.Log($"{enemy.enemyName} left the range of {towerName}");
         }
     }
 }

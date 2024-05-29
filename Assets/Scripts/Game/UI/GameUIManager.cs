@@ -19,8 +19,6 @@ public class GameUIManager : MonoBehaviour
     public Image[] towerImages;
     public Sprite[] towerSprites;
     public Button skipButton;
-    public GameObject statsPanel;
-    public TextMeshProUGUI statsText;
     public TextMeshProUGUI notEnoughMoneyText;
 
     public GameObject endGamePanel;
@@ -31,6 +29,7 @@ public class GameUIManager : MonoBehaviour
 
     private GameManager gameManager;
     private TowerPlacementManager towerPlacementManager;
+    private StatsPanel statsPanel;
     private int selectedTowerIndex = -1;
     private List<GameObject> moneyPopups = new List<GameObject>();
 
@@ -38,9 +37,9 @@ public class GameUIManager : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         towerPlacementManager = FindObjectOfType<TowerPlacementManager>();
+        statsPanel = FindObjectOfType<StatsPanel>();
 
-        // Hide the stats panel, end game panel, and not enough money text initially
-        statsPanel.SetActive(false);
+        // Hide the end game panel and not enough money text initially
         endGamePanel.SetActive(false);
         notEnoughMoneyText.gameObject.SetActive(false);
 
@@ -90,6 +89,17 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    public void ShowNotEnoughMoneyText()
+    {
+        notEnoughMoneyText.gameObject.SetActive(true);
+        Invoke("HideNotEnoughMoneyText", 2f);
+    }
+
+    private void HideNotEnoughMoneyText()
+    {
+        notEnoughMoneyText.gameObject.SetActive(false);
+    }
+
     public void OnSkipButtonPressed()
     {
         gameManager.SkipPhase();
@@ -101,51 +111,36 @@ public class GameUIManager : MonoBehaviour
         Tower tower = towerPlacementManager.towerPrefabs[index].GetComponent<Tower>();
         if (gameManager.PlayerMoney < tower.cost)
         {
-            notEnoughMoneyText.gameObject.SetActive(true);
-            Invoke("HideNotEnoughMoneyText", 2f);
+            ShowNotEnoughMoneyText();
             Debug.Log("Not enough money to place this tower!");
             return;
         }
 
         selectedTowerIndex = index;
-        ShowTowerStats(index);
+        statsPanel.ShowStats(index);
         towerPlacementManager.StartPlacingTower(index);
         Debug.Log($"Tower Button {index + 1} Pressed");
     }
 
     public void OnTowerButtonHover(int index)
     {
-        if (selectedTowerIndex == -1)
-        {
-            ShowTowerStats(index);
-        }
+        statsPanel.ShowStats(index);
     }
 
     public void OnTowerButtonExit()
     {
         if (selectedTowerIndex == -1)
         {
-            statsPanel.SetActive(false);
+            statsPanel.HideStats();
         }
     }
 
-    private void ShowTowerStats(int index)
-    {
-        Tower tower = towerPlacementManager.towerPrefabs[index].GetComponent<Tower>();
-        statsPanel.SetActive(true);
-        statsText.text = $"Tower {tower.towerName} Stats:\nDamage: {tower.damage}\nRange: {tower.range}\nRate: {tower.fireRate}\nCan See Camo: {(tower.canSeeCamo ? "Yes" : "No")}";
-    }
-
-    private void DeselectTower()
+    public void DeselectTower()
     {
         selectedTowerIndex = -1;
-        statsPanel.SetActive(false);
+        statsPanel.HideStats();
+        towerPlacementManager.CancelPlacingTower();
         Debug.Log("Tower Deselected");
-    }
-
-    public void HideStatsPanel()
-    {
-        statsPanel.SetActive(false);
     }
 
     public void ShowWaveComplete()
@@ -201,11 +196,6 @@ public class GameUIManager : MonoBehaviour
 
         moneyPopups.Remove(popup);
         Destroy(popup);
-    }
-
-    private void HideNotEnoughMoneyText()
-    {
-        notEnoughMoneyText.gameObject.SetActive(false);
     }
 
     private void AddEventTrigger(GameObject obj, EventTriggerType type, UnityEngine.Events.UnityAction action)
