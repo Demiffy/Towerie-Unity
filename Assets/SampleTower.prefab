@@ -97,10 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e78adf3cc498c4baedaa0c07e3ecb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerName: Hewwo
-  cost: 120
+  towerName: AAA
+  cost: 100
   damage: 122
-  range: 33
-  fireRate: 345
+  range: 8
+  fireRate: 10
   canSeeCamo: 0
   rangeIndicatorPrefab: {fileID: 81438457505424406, guid: 777981aeda1cae34bb65e9683df224f5, type: 3}

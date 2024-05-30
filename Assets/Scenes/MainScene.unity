@@ -632,7 +632,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a93e258c59ff6e14790b93493017828c, type: 3}
   - {fileID: 21300000, guid: cc3aaf0f874de144caf9467957976d8a, type: 3}
   - {fileID: 21300000, guid: f45f941697c3d9b4b89aaf17b033a9f0, type: 3}
-  - {fileID: 21300000, guid: d43bbc92aec73e44fbed76782b7e4f48, type: 3}
+  - {fileID: 21300000, guid: d2b0dcac96a40b94f856ad8d9adefd87, type: 3}
   skipButton: {fileID: 345273441}
   notEnoughMoneyText: {fileID: 587281783}
   endGamePanel: {fileID: 3025905592294488827}
